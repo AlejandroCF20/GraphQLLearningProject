@@ -1,0 +1,53 @@
+type Course{
+    _id: ID!
+    name: String!
+    teacher: String
+    desc: String!
+    topic: String
+    students: [Student]
+}
+
+type Student{
+    _id: ID!,
+    name: String!,
+    identification: String!
+    age: Int!
+    email: String
+}
+
+type Query{
+    "Retorna todos los cursos"
+    getCourses: [Course]
+    "Retorna un curso por ID"
+    getCourse (id: ID!): Course
+
+    "Retorna todos los estudiantes"
+    getStudents: [Student],
+    "Retorna un estudiante por ID"
+    getStudentById(id: ID!): Student
+    "Retorna un estudiante por su identificacion"
+    getStudentByIdentification(identification: String!): Student
+}
+
+input CourseInput{
+    name: String!
+    teacher: String
+    desc: String!
+    topic: String
+}
+
+input StudentInput{
+    name: String!,
+    identification: String!
+    age: Int!
+    email: String
+}
+
+type Mutation{
+    "Crea un curso"
+    createCourse(input: CourseInput!): Course
+    "Crea un estudiante"
+    createStudent(input: StudentInput!): Student
+    "Agrega un estudiante a un curso"
+    addStudentToCourse(idCourse: ID!, idStudent: ID!): Course
+}
